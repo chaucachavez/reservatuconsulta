@@ -1,0 +1,104 @@
+<div class="locations-section">
+    <app-header></app-header>
+
+    <div class="process">
+        <div class="process--content">
+            <!-- item 1 -->
+            <div class="process__item">
+                <img src="assets/media/icons/check.svg" alt="check" class="process__item--check" />
+                <p class="process__item__text--mobile">Ingresa</p>
+                <p class="process__item__text--desktop">Ingresa</p>
+            </div>
+            <div class="process--divider passed"></div>
+
+            <!-- item 2 -->
+            <div class="process__item active">
+                <div class="process__item--number">
+                    <span>2</span>
+                </div>
+                <p class="process__item__text--mobile">Sede</p>
+                <p class="process__item__text--desktop">Selecciona sede</p>
+            </div>
+            <div class="process--divider process--divider--faded"></div>
+
+            <!-- item 3 -->
+            <div class="process__item process__item--faded">
+                <div class="process__item--number">
+                    <span>3</span>
+                </div>
+                <p class="process__item__text--mobile">Fecha y médico</p>
+                <p class="process__item__text--desktop">Selecciona fecha y médico</p>
+            </div>
+            <div class="process--divider process--divider--faded"></div>
+
+            <!-- item 4 -->
+            <div class="process__item process__item--faded">
+                <div class="process__item--number">
+                    <span>4</span>
+                </div>
+                <p class="process__item__text--mobile">Paga</p>
+                <p class="process__item__text--desktop">Paga</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- main content -->
+    <main role="main" class="container-xl animate__animated animate__fadeIn">
+        <div class="row mt-5 flex-column flex-md-row">
+            <div class="col col-md-5">
+                <p class="main-parr color-sec-2 text-center text-md-left mb-4">
+                    <span class="font-weight-bold">{{nombre}}</span>, atiende tu dolencia
+                    desde nuestra plataforma online. Que el dolor no se quede en casa.
+                </p>
+            </div>
+            <div class="col col-md-7 px-3 px-md-0">
+                <div class="px-md-5 py-5 jumbotron bg-light border-round-2">
+                    <div>
+                        <div class="row mb-1">
+                            <div class="col">
+                                <!-- <h4 class="text-left color-sec-2 font-weight-semibold"> -->
+                                <h4 class="text-left color-sec-2 font-weight-semibold">
+                                    Elige la sede:
+                                </h4>
+
+                            </div>
+                        </div>
+                        <form id="form" [formGroup]="sedeForm">
+                            <!-- radio button group -->
+                            <div class="osi-radio-group">
+                                <!-- radio button 1 -->
+                                <div class="osi-radio" *ngFor="let item of sedes; let i = index">
+                                    <input id="osi-radio-{{i}}" type="radio" formControlName="idsede" name="idsede"
+                                        [value]="item.idsede" />
+                                    <label for="osi-radio-{{i}}" class="osi-radio--label">
+                                        <span class="osi-radio--button"></span>
+                                        <p>{{item.nombre}}</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="alert alert-danger animate__animated animate__headShake" role="alert"
+                                *ngIf="errors" style="margin-top: 5px">
+                                {{errors}}
+                            </div>
+                            <!-- <pre>
+                            {{sedeForm.value | json}}
+                        </pre> -->
+                            <!-- card footer -->
+                            <div class="row mt-3">
+                                <div
+                                    class="col d-flex justify-content-between align-items-center flex-column flex-sm-row-reverse flex-md-column flex-lg-row-reverse">
+                                    <button type="button" (click)="next()" class="button mb-3 mb-sm-0 mb-md-3 mb-lg-0">
+                                        <span class="px-2">Siguiente</span>
+                                    </button>
+                                    <a href="javascript:;" class="text-body font-size-small" (click)="salir()">
+                                        <u>Volver atrás</u>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

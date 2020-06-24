@@ -1,0 +1,240 @@
+<div class="register-section">
+    <app-header></app-header>
+
+    <div class="process">
+        <div class="process--content">
+            <!-- item 1 -->
+            <div class="process__item active">
+                <div class="process__item--number">
+                    <span>1</span>
+                </div>
+                <p class="process__item__text--mobile">Ingresa</p>
+                <p class="process__item__text--desktop">Ingresa</p>
+            </div>
+            <div class="process--divider process--divider--faded"></div>
+
+            <!-- item 2 -->
+            <div class="process__item process__item--faded">
+                <div class="process__item--number">
+                    <span>2</span>
+                </div>
+                <p class="process__item__text--mobile">Sede</p>
+                <p class="process__item__text--desktop">Selecciona sede</p>
+            </div>
+            <div class="process--divider process--divider--faded"></div>
+
+            <!-- item 3 -->
+            <div class="process__item process__item--faded">
+                <div class="process__item--number">
+                    <span>3</span>
+                </div>
+                <p class="process__item__text--mobile">Fecha y médico</p>
+                <p class="process__item__text--desktop">Selecciona fecha y médico</p>
+            </div>
+            <div class="process--divider process--divider--faded"></div>
+
+            <!-- item 4 -->
+            <div class="process__item process__item--faded">
+                <div class="process__item--number">
+                    <span>4</span>
+                </div>
+                <p class="process__item__text--mobile">Paga</p>
+                <p class="process__item__text--desktop">Paga</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- main content -->
+    <main role="main" class="container-xl pb-5 animate__animated animate__fadeIn">
+        <div class="row mt-5 flex-column flex-md-row">
+            <div class="col-12 col-lg-8">
+                <h3 class="color-sec-2 text-center text-md-left font-weight-bold">
+                    Aquí comienza tu recuperación
+                </h3>
+                <h5 class="mb-5 color-sec-2 text-center text-md-left font-weight-normal">
+                    Atención Médica Especializada, Segura, Privada y Profesional
+                </h5>
+                <form class="needs-validation" [formGroup]="registerForm" (ngSubmit)="save()">
+                    <!-- row 1 -->
+                    <div class="row">
+                        <div class="col-12 col-sm-4 mb-4">
+                            <input type="text" placeholder="Nombres*" class="form-control border-round-2 font-size-mid"
+                                [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" formControlName="nombre"
+                                #nombre />
+                            <div class="invalid-feedback">
+                                *Campo obligatorio
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 mb-4">
+                            <input type="text" placeholder="Apellido Paterno*"
+                                class="form-control border-round-2 font-size-mid"
+                                [ngClass]="{ 'is-invalid': submitted && f.apellidopat.errors }"
+                                formControlName="apellidopat" />
+                            <div class="invalid-feedback">
+                                *Campo obligatorio
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 mb-4">
+                            <input type="text" placeholder="Apellido Materno"
+                                class="form-control border-round-2 font-size-mid"
+                                formControlName="apellidomat" />
+                        </div>
+                    </div>
+                    <!-- row 2 -->
+                    <div class="row">
+                        <div class="col-12 col-sm-4 mb-4">
+                            <select class="custom-select d-block w-100 border-round-2 font-size-mid"
+                                [ngClass]="{ 'is-invalid': submitted && f.iddocumento.errors }"
+                                formControlName="iddocumento">
+                                <option value="">Tipo de Documento*</option>
+                                <option *ngFor="let item of documentos" [ngValue]="item.iddocumento">
+                                    {{item.abreviatura}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                *Campo obligatorio
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 mb-4">
+                            <input type="text" placeholder="Nro. Documento*"
+                                class="form-control border-round-2 font-size-mid"
+                                [ngClass]="{ 'is-invalid': submitted && f.numerodoc.errors }"
+                                formControlName="numerodoc" />
+                            <!-- <div class="invalid-feedback">
+                            *Campo obligatorio
+                        </div> -->
+                            <div *ngIf="submitted && f.numerodoc.errors" class="invalid-feedback">
+                                <div *ngIf="f.numerodoc.errors.required">*Campo obligatorio</div>
+                                <div *ngIf="f.numerodoc.errors.minlength || f.numerodoc.errors.maxlength">*8 digitos en
+                                    DNI
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 mb-4">
+                            <select class="custom-select d-block w-100 border-round-2 font-size-mid"
+                                [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }" formControlName="sexo">
+                                <option value="">Sexo*</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                *Campo obligatorio
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- row 3 -->
+                    <div class="row">
+                        <div class="col-12 col-sm-4 mb-4">
+                            <!-- <select class="custom-select d-block w-100 border-round-2 font-size-mid"
+                            [ngClass]="{ 'is-invalid': submitted && f.fechanacimiento.errors }"
+                            formControlName="fechanacimiento">
+                            <option selected disabled value="default">Fecha de nacimiento*</option>
+                        </select> -->
+                            <input type="date" placeholder="Fecha de nacimiento**"
+                                class="form-control border-round-2 font-size-mid"
+                                [ngClass]="{ 'is-invalid': submitted && f.fechanacimiento.errors }"
+                                formControlName="fechanacimiento" />
+
+                            <div class="invalid-feedback">
+                                *Campo obligatorio
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 mb-4">
+                            <input type="text" placeholder="Celular*" class="form-control border-round-2 font-size-mid"
+                                [ngClass]="{ 'is-invalid': submitted && f.celular.errors }" formControlName="celular" />
+                            <div *ngIf="submitted && f.celular.errors" class="invalid-feedback">
+                                <div *ngIf="f.celular.errors.required">*Campo obligatorio</div>
+                                <div *ngIf="f.celular.errors.minlength || f.celular.errors.maxlength">*9 números</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 mb-4">
+                            <input type="text" placeholder="Correo*" class="form-control border-round-2 font-size-mid"
+                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }" formControlName="email" />
+                            <!-- <div class="invalid-feedback">
+                                *Campo obligatorio
+                            </div> -->
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                <div *ngIf="f.email.errors.required">*Campo obligatorio</div>
+                                <div *ngIf="f.email.errors.email">Correo inválido</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row 4 -->
+                    <div class="row">
+                        <div class="col-12 col-sm-4 mb-4">
+                            <input type="password" placeholder="Contraseña*"
+                                class="form-control border-round-2 font-size-mid"
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                                formControlName="password" />
+                            <div class="invalid-feedback">
+                                *Campo obligatorio
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 mb-4">
+                            <input type="password" placeholder="Repetir Contraseña*"
+                                class="form-control border-round-2 font-size-mid"
+                                [ngClass]="{ 'is-invalid': submitted && f.passwordrepeat.errors }"
+                                formControlName="passwordrepeat" />
+                            <div class="invalid-feedback"
+                                *ngIf="submitted && registerForm.get('passwordrepeat').hasError('required')">
+                                *Campo obligatorio
+                            </div>
+                            <div class="invalid-feedback"
+                                *ngIf="submitted && registerForm.get('passwordrepeat').hasError('passwordsNotMatching')">
+                                *Contraseñas no coinciden
+                            </div>
+                            <!-- {{f.passwordrepeat.errors | json}} -->
+                        </div>
+                    </div>
+                    <!-- las info rows -->
+                    <div class="row">
+                        <div class="col">
+                            <p class="font-size-small">
+                                *Todos los campos son obligatorios
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mb-3 mb-md-5">
+                        <div class="col">
+                            <div class="custom-control custom-checkbox d-flex">
+                                <input type="checkbox" class="custom-control-input mt-3" id="terms"
+                                    formControlName="terminos"
+                                    [ngClass]="{ 'is-invalid': submitted && f.terminos.errors }" />
+                                <label class="custom-control-label cursor-pointer" for="terms">
+                                </label>
+                                <p class="ml-1 font-size-small mt-1">
+                                    Declaro que he leído y acepto la nueva Política de
+                                    Privacidad y los
+                                    <u>Términos y Condiciones</u> de OSI.
+                                </p>
+                                <div class="invalid-feedback">
+                                    *Acepte términos y condiciones
+                                </div>
+                            </div>
+
+                            <div class="alert alert-danger animate__animated animate__headShake" role="alert"
+                                *ngIf="errors" style="margin-top: 5px">
+                                {{errors}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center flex-column flex-md-row-reverse">
+                        <button type="submit" class="button mb-3 mb-md-0">
+                            <span class="px-4">Registrarme</span>
+                        </button>
+                        <a [routerLink]="'/'" class="text-body font-size-small">
+                            <u>Volver atrás</u>
+                        </a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4 d-none d-lg-block">
+                <img src="assets/media/icons/medic.svg" class="mw-100" alt="" loading="lazy" />
+            </div>
+        </div>
+    </main>
+
+    <ngx-spinner></ngx-spinner>
+
+</div>

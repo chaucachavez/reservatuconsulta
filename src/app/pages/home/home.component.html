@@ -1,0 +1,231 @@
+<div class="index-section">
+    <app-header></app-header>
+
+    <div class="process">
+        <div class="process--content">
+            <!-- item 1 -->
+            <div class="process__item active">
+                <div class="process__item--number">
+                    <span>1</span>
+                </div>
+                <p class="process__item__text--mobile">Ingresa</p>
+                <p class="process__item__text--desktop">Ingresa</p>
+            </div>
+            <div class="process--divider process--divider--faded"></div>
+
+            <!-- item 2 -->
+            <div class="process__item process__item--faded">
+                <div class="process__item--number">
+                    <span>2</span>
+                </div>
+                <p class="process__item__text--mobile">Sede</p>
+                <p class="process__item__text--desktop">Selecciona sede</p>
+            </div>
+            <div class="process--divider process--divider--faded"></div>
+
+            <!-- item 3 -->
+            <div class="process__item process__item--faded">
+                <div class="process__item--number">
+                    <span>3</span>
+                </div>
+                <p class="process__item__text--mobile">Fecha y médico</p>
+                <p class="process__item__text--desktop">Selecciona fecha y médico</p>
+            </div>
+            <div class="process--divider process--divider--faded"></div>
+
+            <!-- item 4 -->
+            <div class="process__item process__item--faded">
+                <div class="process__item--number">
+                    <span>4</span>
+                </div>
+                <p class="process__item__text--mobile">Paga</p>
+                <p class="process__item__text--desktop">Paga</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- main content -->
+    <main role="main" class="container-xl animate__animated animate__fadeIn">
+
+        <div class="row flex-column flex-lg-row-reverse">
+            <div class="col px-4 mx-lg-3 right-column">
+                <h4 class="color-sec-2 text-center text-lg-left font-weight-normal mt-md-4">
+                    Simple, segura y privada
+                </h4>
+                <h3 class="mb-4 color-sec-2 text-center text-lg-left font-weight-bold">
+                    Reserva tu Cita Médica en OSI
+                </h3>
+                <div class="jumbotron bg-light border-round-2">
+                    <!-- option chooser -->
+
+
+                    <div class="animate__animated animate__fadeIn" *ngIf="formInicio">
+                        <div class="row px-5 px-md-0">
+                            <div class="col-12 col-sm-6 d-flex flex-column justify-content-between mb-5 mb-sm-0">
+                                <p class="text-center color-sec-2">
+                                    ¿Ya eres paciente?
+                                </p>
+                                <a id="jumbo-btn-to-form" href="javascript:;" class="button button--ghost"
+                                    (click)="focusUsername();">
+                                    <span>Iniciar sesión</span>
+                                </a>
+                            </div>
+                            <div class="col d-flex flex-column justify-content-between">
+                                <p class="text-center color-sec-2">¿Paciente nuevo?</p>
+                                <a [routerLink]="'/registro'" class="button">
+                                    <span>Regístrate</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="animate__animated animate__fadeIn" *ngIf="formIngreso">
+                        <p class="text-center color-sec-2 mb-4">Iniciar Sesión</p>
+                        <form [formGroup]="loginForm" (ngSubmit)="authenticar()">
+                            <div class="px-sm-5">
+                                <div class="mb-3">
+                                    <select formControlName="iddocumento"
+                                        class="custom-select d-block w-100 border-round-2">
+                                        <option *ngFor="let item of documentos" [ngValue]="item.iddocumento">
+                                            {{item.abreviatura}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        *Campo obligatorio
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" formControlName="username" #username
+                                        placeholder="N° de documento" class="form-control border-round-2" />
+                                    <div class="invalid-feedback">
+                                        *Campo obligatorio
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" formControlName="password" placeholder="Contraseña"
+                                        class="form-control border-round-2" />
+                                    <div class="invalid-feedback">
+                                        *Campo obligatorio
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex flex-column flex-md-row-reverse justify-content-between align-items-center mt-4">
+                                <button id="jumbo-btn-to-chooser" type="submit"
+                                    class="button mb-3 mb-md-0 mr-0 mr-md-2">
+                                    <span class="px-3">Inicio</span>
+                                </button>
+                                <a href="javascript:;" class="text-body" (click)="focusNumerodoc()">
+                                    <u>Olvidé mi contraseña</u>
+                                </a>
+                            </div>
+
+                            <div class="alert alert-danger animate__animated animate__headShake" role="alert"
+                                *ngIf="errors" style="margin-top: 8px">
+                                {{errors}}
+                            </div>
+                            <!-- <pre>
+                                {{loginForm.value | json}} 
+                            </pre> -->
+                        </form>
+                    </div>
+
+                    <div class="animate__animated animate__fadeIn" *ngIf="formRecuperar">
+                        <p class="text-center color-sec-2 mb-4">Recuperar contraseña</p>
+                        <form [formGroup]="recoveryForm" (ngSubmit)="recovery()">
+                            <div class="px-sm-5">
+                                <div class="mb-3">
+                                    <select formControlName="iddocumento"
+                                        class="custom-select d-block w-100 border-round-2">
+                                        <option *ngFor="let item of documentos" [ngValue]="item.iddocumento">
+                                            {{item.abreviatura}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        *Campo obligatorio
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" formControlName="numerodoc" placeholder="N° de documento"
+                                        class="form-control border-round-2" #numerodoc />
+                                    <div class="invalid-feedback">
+                                        *Campo obligatorio
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex flex-column flex-md-row-reverse justify-content-between align-items-center mt-4">
+                                <button id="jumbo-btn-to-chooser" href="#" class="button mb-3 mb-md-0 mr-0 mr-md-2">
+                                    <span class="px-3">Recuperar</span>
+                                </button>
+                                <a href="javascript:;" class="text-body" (click)="focusLogin();">
+                                    <u>Iniciar sesión</u>
+                                </a>
+                            </div>
+                            <div class="alert alert-danger animate__animated animate__headShake" role="alert"
+                                style="margin-top: 8px" *ngIf="errors">
+                                {{errors}}
+                            </div>
+                            <div class="alert alert-primary animate__animated animate__headShake" role="alert"
+                                style="margin-top: 8px" *ngIf="respuesta">
+                                Enviamos tu contraseña al correo <strong>{{respuesta}}</strong>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <p class="mt-3 mb-5 text-center d-none d-md-block">
+                    ¿Aún no tienes cuenta?
+                    <a [routerLink]="'/registro'" class="text-body">
+                        <u>Registrate aquí</u>
+                    </a>
+                </p>
+            </div>
+            <div class="col px-0 px-md-3 mx-lg-0 left-column">
+                <div class="jumbotron bg-light border-round-2 py-5 px-4 px-md-5">
+                    <h4 class="mb-4 color-sec-2 font-weight-bold pl-md-2">
+                        Conoce los beneficios de OSI
+                    </h4>
+                    <div class="container-fluid beneficios-osi">
+                        <div class="row mb-4">
+                            <div class="col-1 px-0 mr-4 flex-shrink-0">
+                                <img src="assets/media/icons/icon-medic.svg" alt="" loading="lazy" />
+                            </div>
+                            <div class="col flex-grow-1 color-sec-2">
+                                Atención Médica Online con un especialista de amplia
+                                experiencia.
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-1 px-0 mr-4 flex-shrink-0">
+                                <img src="assets/media/icons/icon-shield.svg" alt="" loading="lazy" />
+                            </div>
+                            <div class="col flex-grow-1 color-sec-2">
+                                Protocolos de atención personalizados para cada dolencia del
+                                paciente.
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-1 px-0 mr-4 flex-shrink-0">
+                                <img src="assets/media/icons/icon-doc.svg" alt="" loading="lazy" />
+                            </div>
+                            <div class="col flex-grow-1 color-sec-2">
+                                Seguimiento de la recuperación del paciente a través de la
+                                Historia Clinica Digital.
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-1 px-0 mr-4 flex-shrink-0">
+                                <img src="assets/media/icons/icon-star.svg" alt="" loading="lazy" />
+                            </div>
+                            <div class="col flex-grow-1 color-sec-2">
+                                Sinergia entre nuestros médicos y fisioterapeutas para lograr
+                                tu pronta recuperación.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <ngx-spinner></ngx-spinner>
+</div>

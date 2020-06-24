@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-PSZTMK');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <title>Reserva tu cita médica en OSI</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+  <script type="text/javascript">
+    //Solucion 1 con window
+    function jsTurnos(data) {
+      window.angularComponentReference.zone.run(() => { window.angularComponentReference.loadAngularFunction(data); });
+    } 
+  </script>
+</head>
+
+<body>
+
+  <app-root></app-root>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <script src="https://checkout.culqi.com/js/v3"></script>
+  <!-- main script -->
+  <script>
+
+    //Solucion 2 con CustomEvent
+    function culqi() {
+      if (Culqi.token) {
+        var token = Culqi.token.id;
+        var email = Culqi.token.email;
+        var payment_event = new CustomEvent('payment_event', { detail: { token: token, email: email } });
+        document.dispatchEvent(payment_event);
+      } else {
+        var payment_error = new CustomEvent('payment_error', { detail: Culqi.error.user_message });
+        document.dispatchEvent(payment_error);
+      }
+    };
+
+    function init_appointment() {
+      $(function () {
+        $(document).ready(function () {
+          // https://bootstrap-datepicker.readthedocs.io/en/latest/
+          /* Datepicker configuration */
+          $.fn.datepicker.dates['en'].daysMin = ["D", "L", "M", "M", "J", "V", "S"];
+          $.fn.datepicker.dates['en'].clear = 'Limpiar';
+          $.fn.datepicker.dates['en'].months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+          $.fn.datepicker.dates['en'].monthsShort = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+
+          /* Datepicker calling functions */
+
+          $("#picker-container").datepicker({
+            clearBtn: true,
+            todayHighlight: true,
+            language: 'es-ES',
+            format: 'dd/mm/yyyy'
+          });
+
+          setTimeout(function () {
+            $("#picker-container").datepicker('show');
+          }, 150);
+
+          $('#picker-container').on('changeDate', () => {
+            jsTurnos($('#picker-container').datepicker('getFormattedDate'));
+          });
+
+        })
+      });
+    }
+
+    function init_location() {
+      (function () {
+        "use strict";
+        window.addEventListener(
+          "load",
+          function () {
+            var form = document.querySelector("#form");
+            var inputs = form.getElementsByTagName("input");
+
+            form.addEventListener(
+              "submit",
+              function (e) {
+                e.preventDefault();
+                for (var i = 0; i < inputs.length; i++) {
+                  if (inputs[i].checked) {
+                    var radioDiv = inputs[i].parentElement;
+                    var value = radioDiv.getElementsByTagName("P")[0].innerHTML;
+                    console.log(inputs[i].id, value);
+                  }
+                }
+              },
+              false
+            );
+          },
+          false
+        );
+      })();
+    }
+
+  </script>
+
+</body>
+
+</html>

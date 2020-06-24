@@ -1,0 +1,170 @@
+<div class="detail-section">
+
+    <app-header></app-header>
+
+    <div class="process">
+        <div class="process--content">
+            <!-- item 1 -->
+            <div class="process__item">
+                <img src="assets/media/icons/check.svg" alt="check" class="process__item--check" />
+                <p class="process__item__text--mobile">Ingresa</p>
+                <p class="process__item__text--desktop">Ingresa</p>
+            </div>
+            <div class="process--divider passed"></div>
+
+            <!-- item 2 -->
+            <div class="process__item">
+                <img src="assets/media/icons/check.svg" alt="check" class="process__item--check" />
+                <p class="process__item__text--mobile">Sede</p>
+                <p class="process__item__text--desktop">Selecciona sede</p>
+            </div>
+            <div class="process--divider passed"></div>
+
+            <!-- item 3 -->
+            <div class="process__item">
+                <img src="assets/media/icons/check.svg" alt="check" class="process__item--check" />
+                <p class="process__item__text--mobile">Fecha y médico</p>
+                <p class="process__item__text--desktop">Selecciona fecha y médico</p>
+            </div>
+            <div class="process--divider passed"></div>
+
+            <!-- item 4 -->
+            <div class="process__item active">
+                <div class="process__item--number">
+                    <span>4</span>
+                </div>
+                <p class="process__item__text--mobile">Paga</p>
+                <p class="process__item__text--desktop">Paga</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- main content -->
+    <main role="main" class="container-xl animate__animated animate__fadeIn">
+        <div class="row flex-column flex-md-row">
+            <div class="col col-md-5 px-md-3">
+                <p class="main-parr color-sec-2 text-center text-lg-left mb-4">
+                    <span class="font-weight-bold">{{nombre}}</span>, haz tus pagos por aqui
+                    con confianza. Contamos con protocolos de seguridad digital óptimos.
+                </p>
+                <div class="d-flex mb-4 mx-auto image-mod">
+                    <img src="assets/media/icons/safe-checkout.svg" alt="Safe checkout" loading="lazy" class="w-50" />
+                </div>
+            </div>
+            <div class="col col-md-7 px-3 px-md-0">
+                <div class="jumbotron bg-light border-round-2">
+                    <div class="px-3 px-md-0 px-lg-3">
+                        <div class="row mb-4">
+                            <div class="col">
+                                <h4 class="text-left color-sec-2 font-weight-bold">
+                                    Detalles de consulta
+                                </h4>
+                            </div>
+                        </div>
+                        <!-- details row 1 -->
+                        <div class="row">
+                            <div class="col-1 min-w-2">
+                                <p class="color-sec-2 font-weight-bold">
+                                    Paciente:
+                                </p>
+                            </div>
+                            <div class="col flex-grow-1">
+                                <p class="color-sec-2">
+                                    {{detalle.paciente}}
+                                </p>
+                            </div>
+                        </div>
+                        <!-- details row 2 -->
+                        <div class="row">
+                            <div class="col-1 min-w-2">
+                                <p class="color-sec-2 font-weight-bold">
+                                    Sede:
+                                </p>
+                            </div>
+                            <div class="col flex-grow-1">
+                                <p class="color-sec-2">
+                                    {{detalle.sede}}
+                                </p>
+                            </div>
+                        </div>
+                        <!-- details row 3 -->
+                        <div class="row">
+                            <div class="col-1 min-w-2">
+                                <p class="color-sec-2 font-weight-bold">
+                                    Especialidad:
+                                </p>
+                            </div>
+                            <div class="col flex-grow-1">
+                                <p class="color-sec-2">
+                                    Medicina Física y Rehabilitación
+                                </p>
+                            </div>
+                        </div>
+                        <!-- details row 4 -->
+                        <div class="row">
+                            <div class="col-1 min-w-2">
+                                <p class="color-sec-2 font-weight-bold">
+                                    Médico:
+                                </p>
+                            </div>
+                            <div class="col flex-grow-1">
+                                <p class="color-sec-2">
+                                    Dr. {{detalle.medico}}
+                                </p>
+                            </div>
+                        </div>
+                        <!-- details row 5 -->
+                        <div class="row">
+                            <div class="col-1 min-w-2">
+                                <p class="color-sec-2 font-weight-bold">
+                                    Fecha:
+                                </p>
+                            </div>
+                            <div class="col flex-grow-1">
+                                <p class="color-sec-2">
+                                    <!-- Lunes, 13 de mayo 2020 -->
+                                    {{detalle.fecha | date:'EEEE, d \'de\' MMMM y' | titlecase}}
+                                </p>
+                            </div>
+                        </div>
+                        <!-- details row 6 -->
+                        <div class="row">
+                            <div class="col-1 min-w-2">
+                                <p class="color-sec-2 font-weight-bold">
+                                    Hora:
+                                </p>
+                            </div>
+                            <div class="col flex-grow-1">
+                                <p class="color-sec-2">
+                                    {{detalle.hora | date:'h:mm a' }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="alert alert-danger animate__animated animate__headShake" role="alert" *ngIf="errors"
+                            style="margin-top: 5px">
+                            {{errors}}
+                        </div>
+                        <!-- card footer -->
+                        <div class="row mt-5">
+                            <div
+                                class="col d-flex justify-content-between align-items-center flex-column flex-sm-row-reverse flex-md-column flex-lg-row-reverse">
+                                <button type="button" (click)="openPagar()" class="button mb-3 mb-sm-0 mb-md-3 mb-lg-0">
+                                    <span>Reservar y Pagar</span>
+                                </button>
+
+                                <a [routerLink]="'/seleccione-fecha'" class="text-body font-size-small">
+                                    <u>Volver atrás</u>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <ngx-spinner>
+        <p style="color: white"> Procesando compra.. </p>
+    </ngx-spinner>
+
+</div>
